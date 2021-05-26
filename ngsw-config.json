@@ -1,5 +1,5 @@
 {
-    "configVersion": 18,
+    "configVersion": 7,
     "index": "/index.html",
     "assetGroups": [
         {
@@ -21,15 +21,21 @@
             "installMode": "lazy",
             "updateMode": "prefetch",
             "resources": {
-                "files": ["/assets/Images-pwa/**"],
-                "urls": ["https://fonts.googleapis.com/**"]
+                "files": [
+                    "/assets/Images-pwa/**"
+                ],
+                "urls": [
+                    "https://fonts.googleapis.com/**"
+                ]
             }
         }
     ],
     "dataGroups": [
         {
             "name": "api-freshness",
-            "urls": ["https://reqres.in/api/users?page=2"],
+            "urls": [
+                "/users"
+            ],
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxSize": 20,
@@ -39,7 +45,9 @@
         },
         {
             "name": "api-performance",
-            "urls": ["/users"],
+            "urls": [
+                "/users"
+            ],
             "cacheConfig": {
                 "strategy": "performance",
                 "maxSize": 20,
