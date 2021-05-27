@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { ApiService } from 'src/app/api.service';
 import { MessagingService } from './service/messaging.service';
@@ -9,7 +9,7 @@ import { MessagingService } from './service/messaging.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
   title = 'testpwa';
   articles: any = [];
   userpagedata: number = 2;
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
     // https://medium.com/mighty-ghost-hack/angular-8-firebase-cloud-messaging-push-notifications-cc80d9b36f82
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
+    
     // Notification.requestPermission(function (status) {
     //   console.log('Notification permission status:', status);
     // });
@@ -61,6 +62,10 @@ export class AppComponent implements OnInit {
       console.log(data);
     });
 
+  }
+
+  ngDoCheck() {
+    this.message = this.messagingService.currentToken.value;
   }
 
 }
