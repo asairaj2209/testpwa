@@ -1,27 +1,38 @@
-# Testpwa
+# Progressive Web Apps
+Progressive web apps are web applications built with technologies that make them behave like native apps. A benefit of progressive web apps is the ability to work smoothly when network coverage is unreliable. Also, unlike native apps, no installation is required, but they are faster than typical web apps.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
+[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
-## Development server
+## Angular Starting From Scratch
+First let’s create a new project by using Angular CLI on your system. Using Angular CLI 1.5 (which is the current version) is not sufficient in this case as service worker support for Angular 5 is added in version 1.6. If you haven’t installed Angular CLI 1.6 on your system yet you can do so by using the following command:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```sh
+$ npm install -g @angular/cli@next
+```
+Next, a new project can be created with by using command:
+```sh
+$ ng new angularpwa --service-worker
+```
+A new directory angularpwa is created, the project template is downloaded and dependencies are installed automatically. Furthermore the Angular 5 service worker functionality is activated and the package @angular/service-worker is installed as part of the dependencies.
+You can check that the service worker activation was done by opening file .angular-cli.json and search for the following configuration setting:
+```sh
+"serviceWorker": true
+```
+This is telling Angular CLI to add a service worker when building the application.
 
-## Code scaffolding
+## Trying Out The Default Service Worker
+Let’s try out the default service worker.
+If you’re starting up the development web server with
+```sh
+$ ng serve
+```
+and check the Application tab in the Chrome Developer Tools you’ll notice that no service worker is active. The reason is that Angular CLI is not activating the servicer worker when we’re in development mode. Instead you first have to build your application for production by using:
+```sh
+$ ng build --prod
+```
+The production build of the application is made available in the dist subfolder. To make the content of the dist server available via a web server you can use any static web server like http-server.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Now you can start http-server right inside the dist folder:
+```sh
+$ http-server
+```
